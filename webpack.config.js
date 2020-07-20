@@ -13,7 +13,7 @@ module.exports = {
       cleanStaleWebpackAssets: false,
     }),
     new HtmlWebpackPlugin({
-      title: "Output Management",
+      title: "Caching",
     }),
   ],
   devtool: "inline-source-map",
@@ -21,10 +21,20 @@ module.exports = {
     contentBase: "./dist",
   },
   output: {
-    filename: "[name].bundle.js",
-    chunkFilename: "[name].bundle.js",
+    filename: "[name].[contenthash].js",
     path: path.resolve(__dirname, "dist"),
-    publicPath: "/",
+  },
+  optimization: {
+    runtimeChunk: "single",
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: "vendors",
+          chunks: "all",
+        },
+      },
+    },
   },
   module: {
     rules: [
