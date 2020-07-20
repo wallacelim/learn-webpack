@@ -6,8 +6,8 @@ module.exports = {
   // Entry point for the webpack bundler to build its internal dependency graph
   mode: "development",
   entry: {
-    app: "./src/index.js",
-    print: "./src/print.js",
+    index: "./src/index.js",
+    another: "./src/another-module.js",
   },
   plugins: [
     new CleanWebpackPlugin({
