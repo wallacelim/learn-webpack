@@ -1,34 +1,15 @@
 import _ from "lodash";
 
-import "./style.css";
-import MyIcon from "./icon.png";
-import MyData from "./data.xml";
-// NOTE: only default exports from JSON files can be used
-import printMe from "./print";
-
-function component() {
+function getComponent() {
   const element = document.createElement("div");
   element.innerHTML = _.join(["Hello", "webpack"], " ");
-
-  // Example for loading styles
-  element.classList.add("hello");
-
-  // Example for loading images
-  const myIcon = new Image(400);
-  myIcon.src = MyIcon;
-
-  // Example for loading data
-  console.log(MyData);
-
-  // Example for output management
-  const button = document.createElement("button");
-  button.innerHTML = "Click me and then check the console!";
-  button.onclick = printMe;
-
-  element.appendChild(button);
-  element.appendChild(myIcon);
-
-  return element;
+  return import(/* webpackChunkName: "lodash" */ "lodash")
+    .then(({ default: _ }) => {
+      const element = document.createElement("div");
+      element.innerHTML = _.join(["Hello", "Webpack"], " ");
+      return element;
+    })
+    .catch((error) => "An error occured while loading the component");
 }
 
-document.body.appendChild(component());
+getComponent().then((component) => document.body.appendChild(component));
