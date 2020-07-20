@@ -1,6 +1,8 @@
 import _ from "lodash";
 import "./style.css";
 import MyIcon from "./icon.png";
+import MyData from "./data.xml";
+// NOTE: only default exports from JSON files can be used
 
 function component() {
   const element = document.createElement("div");
@@ -13,6 +15,8 @@ function component() {
   myIcon.src = MyIcon;
 
   element.appendChild(myIcon);
+
+  console.log(MyData);
 
   return element;
 }
