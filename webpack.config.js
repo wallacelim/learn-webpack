@@ -4,19 +4,27 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
   // Entry point for the webpack bundler to build its internal dependency graph
+  mode: "development",
   entry: {
     app: "./src/index.js",
     print: "./src/print.js",
   },
   plugins: [
-    new CleanWebpackPlugin(),
+    new CleanWebpackPlugin({
+      cleanStaleWebpackAssets: false,
+    }),
     new HtmlWebpackPlugin({
       title: "Output Management",
     }),
   ],
+  devtool: "inline-source-map",
+  devServer: {
+    contentBase: "./dist",
+  },
   output: {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "dist"),
+    publicPath: "/",
   },
   module: {
     rules: [
